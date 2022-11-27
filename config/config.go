@@ -7,7 +7,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/iskrapw/utils/misc"
+	"github.com/so5dz/utils/misc"
 )
 
 func LoadConfigFromArgs[T any]() (T, error) {
