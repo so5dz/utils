@@ -10,6 +10,10 @@ import (
 	"github.com/iskrapw/utils/misc"
 )
 
+const _FileOpenError = ""
+const _FileReadError = ""
+const _FileDeserializationError = ""
+
 func LoadConfigFromArgs[T any]() (T, error) {
 	var cfg T
 
@@ -32,19 +36,19 @@ func LoadConfigFromArgs[T any]() (T, error) {
 func LoadConfig[T any](path string, object *T) error {
 	jsonFile, err := os.Open(path)
 	if err != nil {
-		return err
+		return misc.WrapError(_FileOpenError, err)
 	}
 
 	content, err := ioutil.ReadAll(jsonFile)
 	if err != nil {
-		return err
+		return misc.WrapError(_FileReadError, err)
 	}
 
 	jsonFile.Close()
 
 	err = json.Unmarshal(content, object)
 	if err != nil {
-		return err
+		return misc.WrapError(_FileDeserializationError, err)
 	}
 
 	return nil
